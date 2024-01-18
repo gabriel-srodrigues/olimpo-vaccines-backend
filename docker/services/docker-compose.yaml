@@ -1,0 +1,13 @@
+#docker/services/docker-compose.yaml
+
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: db_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "root"
+    ports:
+      - "3306:3306"

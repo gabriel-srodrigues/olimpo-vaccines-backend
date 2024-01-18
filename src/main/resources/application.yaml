@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${mysql.host}/vaccines?createDatabaseIfNotExist=true
+    username: ${mysql.username}
+    password: ${mysql.password}
+  profiles:
+    active: dev
+  liquibase:
+    change-log: liquibase/master.yaml
+  jpa:
+    show-sql: ${show-sql:false}
