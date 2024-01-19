@@ -16,8 +16,14 @@ public final class CreatePatientUseCaseImpl implements CreatePatientUseCase {
 
     @Override
     public Patient execute(CreatePatientCommand command) {
-        Patient patient = new Patient(command.name(), command.phone(), command.email(), command.birthdate());
+        Patient patient = new Patient(
+                command.name(),
+                command.phone(),
+                command.email(),
+                command.birthdate());
+
         informPatientRegistration(command);
+
         return patientRepository.save(patient);
     }
 

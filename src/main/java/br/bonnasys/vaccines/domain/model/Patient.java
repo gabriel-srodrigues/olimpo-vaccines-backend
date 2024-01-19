@@ -2,6 +2,7 @@ package br.bonnasys.vaccines.domain.model;
 
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientCommand;
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,6 +38,7 @@ public class Patient {
     private OffsetDateTime createdAt; //yyyy-MM-ddTHH:mm:ss-Z 2024-01-11T20:59:00-03:00
     private OffsetDateTime updatedAt;
     @OneToMany
+    @JsonIgnore
     private List<VaccineRegistration> history;
 
     @PrePersist

@@ -24,7 +24,8 @@ import java.util.Map;
 public class HealthCenter {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36) //uuid -> 36, 32 0-9 a-f, 4{-}   f6de9739-05e2-4eb3-b401-49ccdfe26b2a
+    @Column(length = 36)
+    //uuid -> 36 caracteres sendo 32[0-9,a-f] e 4 "-" f6de9739-05e2-4eb3-b401-49ccdfe26b2a
     private String id;
     private String name;
     private String address;
