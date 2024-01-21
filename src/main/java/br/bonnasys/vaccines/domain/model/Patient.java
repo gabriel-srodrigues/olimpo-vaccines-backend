@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,5 +52,21 @@ public class Patient {
         this.phone = phone;
         this.email = email;
         this.birthdate = birthdate;
+    }
+
+    public Patient(String id,
+                   String name,
+                   String phone,
+                   String email,
+                   LocalDate birthdate,
+                   OffsetDateTime createdAt,
+                   OffsetDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

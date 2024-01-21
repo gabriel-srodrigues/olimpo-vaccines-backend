@@ -1,0 +1,5 @@
+type Query {
+    searchPatients(page: Int, size: Int, term: String): PatientPage!
+    countPatients(term: String): Int
+
+}

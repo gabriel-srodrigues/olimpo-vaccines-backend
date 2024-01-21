@@ -3,12 +3,17 @@ package br.bonnasys.vaccines.support.builder;
 import br.bonnasys.vaccines.domain.model.Patient;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
 public final class PatientBuilder {
+    private String id;
     private String name;
     private String phone;
     private String email;
     private LocalDate birthdate;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
 
     public static PatientBuilder any() {
         PatientBuilder patientBuilder = new PatientBuilder();
@@ -16,6 +21,8 @@ public final class PatientBuilder {
         patientBuilder.email = "jay@moveis.com.br";
         patientBuilder.phone = "(99) 99999-9999";
         patientBuilder.birthdate = LocalDate.now().minusYears(21);
+        patientBuilder.createdAt = OffsetDateTime.now();
+        patientBuilder.updatedAt = OffsetDateTime.now();
         return patientBuilder;
     }
 
@@ -24,7 +31,11 @@ public final class PatientBuilder {
         return this;
     }
 
+    public PatientBuilder withId() {
+        this.id = UUID.randomUUID().toString();
+        return this;
+    }
     public Patient build() {
-        return new Patient(this.name, this.phone, this.email, this.birthdate);
+        return new Patient(this.id, this.name, this.phone, this.email, this.birthdate, this.createdAt, this.updatedAt);
     }
 }
