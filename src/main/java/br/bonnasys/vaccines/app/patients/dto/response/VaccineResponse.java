@@ -1,19 +1,16 @@
-package br.bonnasys.vaccines.app.graphql.patients.response;
+package br.bonnasys.vaccines.app.patients.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
-public class PatientResponse {
+public class VaccineResponse {
     private String id;
     private String name;
-    private String phone;
-    private String email;
-    private LocalDate birthdate;
+    private String producer;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

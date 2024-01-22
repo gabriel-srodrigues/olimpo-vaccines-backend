@@ -1,5 +1,6 @@
-package br.bonnasys.vaccines.app.graphql.patients.response;
+package br.bonnasys.vaccines.app.patients.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

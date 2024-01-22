@@ -1,6 +1,5 @@
-package br.bonnasys.vaccines.app.graphql.patients.response;
+package br.bonnasys.vaccines.app.patients.dto.response;
 
-import br.bonnasys.vaccines.domain.model.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
