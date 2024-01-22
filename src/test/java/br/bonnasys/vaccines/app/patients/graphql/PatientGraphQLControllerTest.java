@@ -1,16 +1,14 @@
-package br.bonnasys.vaccines.app.graphql.patients;
+package br.bonnasys.vaccines.app.patients.graphql;
 
-import br.bonnasys.vaccines.app.graphql.patients.response.PaginationResponse;
-import br.bonnasys.vaccines.app.graphql.patients.response.PatientResponse;
+import br.bonnasys.vaccines.app.patients.dto.response.PaginationResponse;
+import br.bonnasys.vaccines.app.patients.dto.response.PatientResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.count.CountPatientsUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientsUseCase;
+import br.bonnasys.vaccines.domain.usecase.patient.PatientFacade;
 import br.bonnasys.vaccines.support.annotations.GraphQLControllerTest;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.objectweb.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.ParameterizedTypeReference;
@@ -25,10 +23,7 @@ import java.util.List;
 class PatientGraphQLControllerTest {
 
     @MockBean
-    private SearchPatientsUseCase searchPatientsUseCase;
-
-    @MockBean
-    private CountPatientsUseCase countPatientsUseCase;
+    private PatientFacade patientFacade;
 
     @Autowired
     private GraphQlTester graphql;
@@ -45,7 +40,7 @@ class PatientGraphQLControllerTest {
                 .build();
 
         Page<Patient> patientPage = new PageImpl<>(List.of(patient), PageRequest.of(expectedPage, expectedSize), 1);
-        Mockito.when(searchPatientsUseCase.execute(Mockito.any())).thenReturn(patientPage);
+        Mockito.when(patientFacade.searchPatientsUseCase(Mockito.any())).thenReturn(patientPage);
 
         final var query = """
                 query search($page: Int, $size: Int, $term: String) {
@@ -96,7 +91,7 @@ class PatientGraphQLControllerTest {
     @Test
     void givenCountPatientsWhenCallsGraphQLThenAssertActualResult() {
         long expectedCountResult = 4L;
-        Mockito.when(countPatientsUseCase.execute(Mockito.any())).thenReturn(expectedCountResult);
+        Mockito.when(patientFacade.countPatientsUseCase(Mockito.any())).thenReturn(expectedCountResult);
 
         final var query = """
                 {

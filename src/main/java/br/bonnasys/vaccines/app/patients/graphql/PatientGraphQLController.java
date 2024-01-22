@@ -1,13 +1,12 @@
-package br.bonnasys.vaccines.app.graphql.patients;
+package br.bonnasys.vaccines.app.patients.graphql;
 
-import br.bonnasys.vaccines.app.graphql.patients.response.PageResponse;
-import br.bonnasys.vaccines.app.graphql.patients.response.PaginationResponse;
-import br.bonnasys.vaccines.app.graphql.patients.response.PatientResponse;
-import br.bonnasys.vaccines.app.mapper.PatientMapper;
+import br.bonnasys.vaccines.app.patients.dto.response.PageResponse;
+import br.bonnasys.vaccines.app.patients.dto.response.PaginationResponse;
+import br.bonnasys.vaccines.app.patients.dto.response.PatientResponse;
+import br.bonnasys.vaccines.app.patients.mapper.PatientMapper;
 import br.bonnasys.vaccines.domain.model.Patient;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.count.CountPatientsUseCase;
+import br.bonnasys.vaccines.domain.usecase.patient.PatientFacade;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientsCommand;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientsUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @AllArgsConstructor
 public class PatientGraphQLController {
-    private final SearchPatientsUseCase searchPatientsUseCase;
-    private final CountPatientsUseCase countPatientsUseCase;
+    private final PatientFacade patientFacade;
     private final PatientMapper patientMapper;
 
     @QueryMapping(name = "searchPatients")
@@ -27,8 +25,8 @@ public class PatientGraphQLController {
                                              @Argument Integer size,
                                              @Argument String term) {
         SearchPatientsCommand command = new SearchPatientsCommand(term, PageRequest.of(page, size));
-        Page<Patient> patientPage = searchPatientsUseCase.execute(command);
-        Page<PatientResponse> patientResponse = patientPage.map(patientMapper::toPatientResponse);
+        Page<Patient> patientPage = patientFacade.searchPatientsUseCase(command);
+        Page<PatientResponse> patientResponse = patientPage.map(patientMapper::toPatientResponseWithoutHistory);
         PageResponse pageResponse = new PageResponse(
                 patientPage.getNumber(),
                 patientPage.getSize(),
@@ -39,6 +37,12 @@ public class PatientGraphQLController {
 
     @QueryMapping(name = "countPatients")
     public Long countPatients(@Argument String term) {
-        return countPatientsUseCase.execute(term);
+        return patientFacade.countPatientsUseCase(term);
+    }
+
+    @QueryMapping(name = "getPatientById")
+    public PatientResponse getPatientById(@Argument String id) {
+        Patient patient = patientFacade.getPatientByIdUseCase(id);
+        return patientMapper.toPatientResponse(patient);
     }
 }
