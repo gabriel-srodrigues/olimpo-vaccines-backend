@@ -1,6 +1,6 @@
 package br.bonnasys.vaccines.infrastructure.configuration;
 
-import br.bonnasys.vaccines.app.mapper.PatientMapper;
+import br.bonnasys.vaccines.app.patients.mapper.PatientMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
