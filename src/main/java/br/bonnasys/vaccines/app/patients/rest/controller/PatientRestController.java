@@ -8,6 +8,7 @@ import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.usecase.patient.PatientFacade;
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientCommand;
 import lombok.AllArgsConstructor;
+import org.springframework.graphql.client.GraphQlClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
