@@ -1,0 +1,61 @@
+type Query {
+    searchPatients(page: Int, size: Int, name: String, email: String): PatientPage!
+    getPatientById(id: String): PatientDetailed
+}
+
+type PatientPage {
+    content: [Patient]
+    page: Page!
+}
+
+type Page {
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+}
+
+type Patient {
+    id: ID!
+    name: String!
+    email: String!
+    phone: String!
+    birthdate: String
+    createdAt: String
+    updatedAt :String
+}
+
+type PatientDetailed {
+    id: ID!
+    name: String!
+    email: String!
+    phone: String!
+    birthdate: String
+    createdAt: String
+    updatedAt :String
+    history: [History]
+}
+type History {
+    id: ID!
+    vaccine: Vaccine
+    healthCenter: HealthCenter
+    registrationDate: String
+}
+
+type Vaccine {
+    id: ID!
+    name: String!
+    producer: String
+    createdAt: String
+    updatedAt: String
+}
+
+type HealthCenter {
+    id: ID!
+    name: String
+    address: String
+    state: String
+    neighborhood: String
+    createdAt: String
+    updatedAt: String
+}

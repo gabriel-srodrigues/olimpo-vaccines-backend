@@ -1,11 +1,8 @@
 package br.bonnasys.vaccines.domain.model;
 
-import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientCommand;
-import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,15 +38,31 @@ public class Patient {
     @JsonIgnore
     private List<VaccineRegistration> history;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = OffsetDateTime.now();
-    }
-
     public Patient(String name, String phone, String email, LocalDate birthdate) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.birthdate = birthdate;
+    }
+
+    public Patient(String id,
+                   String name,
+                   String phone,
+                   String email,
+                   LocalDate birthdate,
+                   OffsetDateTime createdAt,
+                   OffsetDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = OffsetDateTime.now();
     }
 }
