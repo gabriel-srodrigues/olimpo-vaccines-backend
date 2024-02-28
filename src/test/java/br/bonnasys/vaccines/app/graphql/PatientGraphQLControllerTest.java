@@ -153,6 +153,6 @@ class PatientGraphQLControllerTest {
         Assertions.assertNotNull(actualResponse);
         Assertions.assertEquals(id, actualResponse.getId());
         Mockito.verify(getPatientByIdUseCase, Mockito.times(1)).execute(Mockito.any(String.class));
-        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(0)).execute(id);
+        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(1)).execute(id);
     }
 }
