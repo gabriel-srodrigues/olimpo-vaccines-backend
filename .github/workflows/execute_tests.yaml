@@ -1,0 +1,13 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  execute_unit_tests:
+    name: Execute unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dizer olá
+        run: echo EEEPAAA!

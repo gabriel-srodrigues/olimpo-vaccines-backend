@@ -1,7 +1,9 @@
 package br.bonnasys.vaccines.app.mapper;
 
 import br.bonnasys.vaccines.app.dto.response.PatientResponse;
+import br.bonnasys.vaccines.app.dto.response.VaccineRegistrationResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
+import br.bonnasys.vaccines.domain.model.VaccineRegistration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -10,5 +12,8 @@ import org.mapstruct.factory.Mappers;
 public interface PatientMapper {
     PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
+    @Mapping(target = "history", ignore = true)
     PatientResponse toPatientResponse(Patient patient);
+
+    VaccineRegistrationResponse toVaccineRegistrationResponse(VaccineRegistration vaccineRegistration);
 }

@@ -16,3 +16,5 @@ spring:
     graphiql:
       enabled: true
       path: /graphiql
+server:
+  port: 8080

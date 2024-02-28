@@ -36,6 +36,11 @@ public final class PatientBuilder {
         return this;
     }
 
+    public PatientBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
+
     public Patient build() {
         return new Patient(this.id, this.name, this.phone, this.email, this.birthdate, this.createdAt, this.updatedAt);
     }
