@@ -3,6 +3,7 @@ package br.bonnasys.vaccines.app.graphql;
 import br.bonnasys.vaccines.app.dto.response.PaginationResponse;
 import br.bonnasys.vaccines.app.dto.response.PatientResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
+import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
@@ -36,6 +37,9 @@ class PatientGraphQLControllerTest {
 
     @MockBean
     private GetPatientByIdUseCase getPatientByIdUseCase;
+
+    @MockBean
+    private CreatePatientUseCase createPatientUseCase;
 
     @MockBean
     private SearchPatientHistoryUseCase searchPatientHistoryUseCase;
