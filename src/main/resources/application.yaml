@@ -16,5 +16,16 @@ spring:
     graphiql:
       enabled: true
       path: /graphiql
-server:
-  port: 8080
+  rabbitmq:
+    dynamic: true
+    host: ${amqp.host}
+    port: ${amqp.port}
+    username: ${amqp.username}
+    password: ${amqp.password}
+
+amqp:
+  queues:
+    vaccines-create:
+      exchange: vaccines.events
+      routing-key: vaccines.create
+      queue: vaccines.create.queue

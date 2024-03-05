@@ -1,7 +1,7 @@
 package br.bonnasys.vaccines.app.mapper;
 
-import br.bonnasys.vaccines.app.dto.response.PatientResponse;
-import br.bonnasys.vaccines.app.dto.response.VaccineRegistrationResponse;
+import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
+import br.bonnasys.vaccines.app.graphql.response.VaccineRegistrationResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.model.VaccineRegistration;
 import org.mapstruct.Mapper;

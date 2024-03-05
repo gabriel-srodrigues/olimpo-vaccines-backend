@@ -11,3 +11,14 @@ services:
       MYSQL_DATABASE: "root"
     ports:
       - "3306:3306"
+  rabbit:
+    container_name: adm_videos_rabbitmq
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG
+      - RABBITMQ_DEFAULT_USER=vaccines
+      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - "15672:15672"
+      - "5672:5672"

@@ -1,6 +1,6 @@
 package br.bonnasys.vaccines.app.rest.controller;
 
-import br.bonnasys.vaccines.app.dto.response.PatientResponse;
+import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import br.bonnasys.vaccines.app.rest.PatientApi;
 import br.bonnasys.vaccines.app.rest.controller.dto.request.CreatePatientRequest;

@@ -1,13 +1,13 @@
 package br.bonnasys.vaccines.app.graphql;
 
-import br.bonnasys.vaccines.app.dto.response.PaginationResponse;
-import br.bonnasys.vaccines.app.dto.response.PatientResponse;
+import br.bonnasys.vaccines.app.graphql.response.PaginationResponse;
+import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
-import br.bonnasys.vaccines.infrastrucutre.configuration.MapStructConfiguration;
+import br.bonnasys.vaccines.infrastructure.configuration.MapStructConfiguration;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

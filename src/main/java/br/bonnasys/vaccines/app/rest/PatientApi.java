@@ -1,6 +1,6 @@
 package br.bonnasys.vaccines.app.rest;
 
-import br.bonnasys.vaccines.app.dto.response.PatientResponse;
+import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
 import br.bonnasys.vaccines.app.rest.controller.dto.request.CreatePatientRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;

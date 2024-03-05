@@ -1,6 +1,5 @@
-package br.bonnasys.vaccines.app.dto.response;
+package br.bonnasys.vaccines.app.graphql.response;
 
-import br.bonnasys.vaccines.domain.model.HealthCenter;
 import lombok.Getter;
 import lombok.Setter;
 
