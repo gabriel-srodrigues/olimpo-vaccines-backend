@@ -1,4 +1,4 @@
-package br.bonnasys.vaccines.app.dto.response;
+package br.bonnasys.vaccines.app.graphql.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

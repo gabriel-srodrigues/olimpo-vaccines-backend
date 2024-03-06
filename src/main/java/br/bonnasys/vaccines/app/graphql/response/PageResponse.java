@@ -1,4 +1,4 @@
-package br.bonnasys.vaccines.app.dto.response;
+package br.bonnasys.vaccines.app.graphql.response;
 
 
 public record PageResponse(Integer pageNumber,
