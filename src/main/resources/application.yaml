@@ -22,7 +22,6 @@ spring:
     port: ${amqp.port}
     username: ${amqp.username}
     password: ${amqp.password}
-
 amqp:
   queues:
     create-vaccines:
@@ -31,3 +30,6 @@ amqp:
       queue: vaccines.create.queue
 server:
   port: 8080
+springdoc:
+  swagger-ui:
+    path: swagger

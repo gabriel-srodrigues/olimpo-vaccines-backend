@@ -1,4 +1,4 @@
-package br.bonnasys.vaccines.app.rest.controller.dto.request;
+package br.bonnasys.vaccines.app.rest.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

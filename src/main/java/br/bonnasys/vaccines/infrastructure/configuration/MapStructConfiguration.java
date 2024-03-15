@@ -1,5 +1,6 @@
 package br.bonnasys.vaccines.infrastructure.configuration;
 
+import br.bonnasys.vaccines.app.mapper.HealthCenterMapper;
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -13,5 +14,11 @@ public class MapStructConfiguration {
     public PatientMapper patientMapper() {
         log.info("[patientMapper]: Starting patient mapper");
         return PatientMapper.INSTANCE;
+    }
+
+    @Bean
+    public HealthCenterMapper healthCenterMapper() {
+        log.info("[healthCenterMapper]: starting health center mapper");
+        return HealthCenterMapper.INSTANCE;
     }
 }

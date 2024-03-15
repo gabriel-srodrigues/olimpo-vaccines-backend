@@ -3,7 +3,7 @@ package br.bonnasys.vaccines.app.rest.controller;
 import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import br.bonnasys.vaccines.app.rest.PatientApi;
-import br.bonnasys.vaccines.app.rest.controller.dto.request.CreatePatientRequest;
+import br.bonnasys.vaccines.app.rest.request.CreatePatientRequest;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientCommand;
 import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
