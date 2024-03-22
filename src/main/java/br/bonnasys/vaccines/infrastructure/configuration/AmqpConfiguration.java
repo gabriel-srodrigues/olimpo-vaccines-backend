@@ -1,6 +1,8 @@
 package br.bonnasys.vaccines.infrastructure.configuration;
 
 import br.bonnasys.vaccines.infrastructure.annotation.CreateVaccineQueue;
+import br.bonnasys.vaccines.infrastructure.annotation.PatientEvents;
+import br.bonnasys.vaccines.infrastructure.annotation.VaccinatePatientQueue;
 import br.bonnasys.vaccines.infrastructure.annotation.VaccineEvents;
 import br.bonnasys.vaccines.infrastructure.properties.QueueProperties;
 import org.springframework.amqp.core.Binding;
@@ -21,6 +23,13 @@ public class AmqpConfiguration {
         return new QueueProperties();
     }
 
+    @Bean
+    @VaccinatePatientQueue
+    @ConfigurationProperties("amqp.queues.vaccinate-patient")
+    public QueueProperties vaccinateQueueQueue() {
+        return new QueueProperties();
+    }
+
     @Configuration
     static class Admin {
 
@@ -30,10 +39,23 @@ public class AmqpConfiguration {
             return new DirectExchange(properties.getExchange());
         }
 
+
         @Bean
         @CreateVaccineQueue
         Queue createVaccineQueue(@CreateVaccineQueue QueueProperties properties) {
             return new Queue(properties.getQueue());
+        }
+
+        @Bean
+        @VaccinatePatientQueue
+        Queue vaccinatePatientQueue(@VaccinatePatientQueue QueueProperties properties) {
+            return new Queue(properties.getQueue());
+        }
+
+        @Bean
+        @PatientEvents
+        DirectExchange vaccinatePatientEventExchange(@VaccinatePatientQueue QueueProperties properties) {
+            return new DirectExchange(properties.getExchange());
         }
 
         @Bean
@@ -42,6 +64,16 @@ public class AmqpConfiguration {
                 @VaccineEvents DirectExchange exchange,
                 @CreateVaccineQueue Queue queue,
                 @CreateVaccineQueue QueueProperties queueProperties
+        ) {
+            return BindingBuilder.bind(queue).to(exchange).with(queueProperties.getRoutingKey());
+        }
+
+        @Bean
+        @VaccinatePatientQueue
+        Binding vaccinatePatientBidding(
+                @PatientEvents DirectExchange exchange,
+                @VaccinatePatientQueue Queue queue,
+                @VaccinatePatientQueue QueueProperties queueProperties
         ) {
             return BindingBuilder.bind(queue).to(exchange).with(queueProperties.getRoutingKey());
         }

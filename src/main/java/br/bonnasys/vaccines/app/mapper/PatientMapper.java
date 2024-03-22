@@ -15,5 +15,7 @@ public interface PatientMapper {
     @Mapping(target = "history", ignore = true)
     PatientResponse toPatientResponse(Patient patient);
 
+    PatientResponse toPatientResponseWithHistory(Patient patient);
+
     VaccineRegistrationResponse toVaccineRegistrationResponse(VaccineRegistration vaccineRegistration);
 }

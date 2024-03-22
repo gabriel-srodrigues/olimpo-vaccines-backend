@@ -29,7 +29,7 @@ public class Patient {
     private OffsetDateTime updatedAt;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VaccineRegistration> history;
 
     public Patient(String name, String phone, String email, LocalDate birthdate) {
