@@ -2,12 +2,8 @@ package br.bonnasys.vaccines.app.graphql;
 
 import br.bonnasys.vaccines.app.graphql.response.PaginationResponse;
 import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
-import br.bonnasys.vaccines.app.rest.controller.HealthCenterController;
 import br.bonnasys.vaccines.domain.model.Patient;
-import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
+import br.bonnasys.vaccines.domain.usecase.PatientFacade;
 import br.bonnasys.vaccines.infrastructure.configuration.MapStructConfiguration;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -29,24 +25,13 @@ import java.util.List;
 import java.util.UUID;
 
 @ActiveProfiles("test")
-@GraphQlTest(includeFilters =
-@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = MapStructConfiguration.class))
+@GraphQlTest(
+        controllers = PatientGraphQLController.class,
+        includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = MapStructConfiguration.class))
 class PatientGraphQLControllerTest {
 
     @MockBean
-    private SearchPatientUseCase searchPatientUseCase;
-
-    @MockBean
-    private GetPatientByIdUseCase getPatientByIdUseCase;
-
-    @MockBean
-    private CreatePatientUseCase createPatientUseCase;
-
-    @MockBean
-    private SearchPatientHistoryUseCase searchPatientHistoryUseCase;
-
-    @MockBean
-    private HealthCenterController healthCenterController;
+    private PatientFacade patientFacade;
 
     @Autowired
     private GraphQlTester graphql;
@@ -63,7 +48,7 @@ class PatientGraphQLControllerTest {
                 .build();
 
         Page<Patient> patientPage = new PageImpl<>(List.of(patient), PageRequest.of(0, 10), 1);
-        Mockito.when(searchPatientUseCase.execute(Mockito.any(), Mockito.any())).thenReturn(patientPage);
+        Mockito.when(patientFacade.searchPatientUseCase(Mockito.any(), Mockito.any())).thenReturn(patientPage);
 
         final var query = """
                 query search($page: Int, $size: Int, $name: String, $email: String) {
@@ -103,7 +88,7 @@ class PatientGraphQLControllerTest {
     void givenValidCommandWithHistoryWhenCallsGetPatientByIdThenAssertFields() {
         String id = UUID.randomUUID().toString();
         Patient patient = PatientBuilder.any().withId(id).build();
-        Mockito.when(getPatientByIdUseCase.execute(id)).thenReturn(patient);
+        Mockito.when(patientFacade.getPatientByIdUseCase(id)).thenReturn(patient);
 
         final var query = """
                 query get($id: String) {
@@ -131,14 +116,14 @@ class PatientGraphQLControllerTest {
 
         Assertions.assertNotNull(actualResponse);
         Assertions.assertEquals(id, actualResponse.getId());
-        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(1)).execute(id);
+        Mockito.verify(patientFacade, Mockito.times(1)).getPatientByIdUseCase(id);
     }
 
     @Test
     void givenValidCommandWithoutHistoryWhenCallsGetPatientByIdThenAssertFields() {
         String id = UUID.randomUUID().toString();
         Patient patient = PatientBuilder.any().withId(id).build();
-        Mockito.when(getPatientByIdUseCase.execute(id)).thenReturn(patient);
+        Mockito.when(patientFacade.getPatientByIdUseCase(id)).thenReturn(patient);
 
         final var query = """
                 query get($id: String) {
@@ -160,7 +145,7 @@ class PatientGraphQLControllerTest {
 
         Assertions.assertNotNull(actualResponse);
         Assertions.assertEquals(id, actualResponse.getId());
-        Mockito.verify(getPatientByIdUseCase, Mockito.times(1)).execute(Mockito.any(String.class));
-        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(0)).execute(id);
+        Mockito.verify(patientFacade, Mockito.times(1)).getPatientByIdUseCase(Mockito.any(String.class));
+        Mockito.verify(patientFacade, Mockito.times(0)).searchPatientUseCase(Mockito.any(), Mockito.any());
     }
 }

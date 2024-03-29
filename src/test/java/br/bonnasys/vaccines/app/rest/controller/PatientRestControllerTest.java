@@ -2,8 +2,7 @@ package br.bonnasys.vaccines.app.rest.controller;
 
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import br.bonnasys.vaccines.app.rest.PatientApi;
-import br.bonnasys.vaccines.domain.usecase.patient.create.CreatePatientUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
+import br.bonnasys.vaccines.domain.usecase.PatientFacade;
 import br.bonnasys.vaccines.support.annotation.ControllerTest;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Test;
@@ -21,10 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PatientRestControllerTest {
 
     @MockBean
-    private GetPatientByIdUseCase getPatientByIdUseCase;
-
-    @MockBean
-    private CreatePatientUseCase createPatientUseCase;
+    private PatientFacade patientFacade;
 
     @MockBean
     private PatientMapper patientMapper;
@@ -35,7 +31,7 @@ class PatientRestControllerTest {
     @Test
     void dummy() throws Exception {
 
-        Mockito.when(createPatientUseCase.execute(Mockito.any()))
+        Mockito.when(patientFacade.createPatientUseCase(Mockito.any()))
                 .thenReturn(PatientBuilder.any().withId().build());
 
         final String payload = """
