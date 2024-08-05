@@ -33,7 +33,7 @@ create table vaccine_registration (
     health_center_id  varchar(36),
     patient_id        varchar(36),
     vaccine_id        varchar(36),
-    id                varchar(255) not null,
+    id                varchar(36) not null,
     primary key (id)
 ) engine = InnoDB;
 create table vaccine_stock (

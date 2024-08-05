@@ -1,4 +1,5 @@
 type Query {
+    countPatients(term: String): Int
     searchPatients(page: Int, size: Int, name: String, email: String): PatientPage!
     getPatientById(id: String): PatientDetailed
 }
