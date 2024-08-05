@@ -33,7 +33,7 @@ public final class CreatePatientUseCaseImpl implements CreatePatientUseCase {
         String lastName = fullName[fullName.length - 1];
         Integer years = LocalDate.now().getYear() - command.birthdate().getYear();
         String registration = """
-                                
+                arquivo de controladoria
                 ----------------------------------------
                 Solicitação:            create
                 Nome paciente:          %s

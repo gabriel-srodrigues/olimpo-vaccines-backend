@@ -15,6 +15,8 @@ public final class PatientBuilder {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 
+    private String id;
+
     public static PatientBuilder any() {
         PatientBuilder patientBuilder = new PatientBuilder();
         patientBuilder.name = "Jay Pritcher";
@@ -35,6 +37,13 @@ public final class PatientBuilder {
         this.id = UUID.randomUUID().toString();
         return this;
     }
+
+
+    public PatientBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
+
     public Patient build() {
         return new Patient(this.id, this.name, this.phone, this.email, this.birthdate, this.createdAt, this.updatedAt);
     }
