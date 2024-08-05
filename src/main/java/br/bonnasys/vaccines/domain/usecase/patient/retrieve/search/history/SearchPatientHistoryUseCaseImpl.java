@@ -18,7 +18,6 @@ public class SearchPatientHistoryUseCaseImpl implements SearchPatientHistoryUseC
     public List<VaccineRegistration> execute(String id) {
         return patientRepository.findById(id)
                 .map(Patient::getHistory)
-//                .map(patient -> patient.getHistory())
                 .orElseThrow(PatientNotFoundException::new);
     }
 }
