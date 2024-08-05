@@ -7,12 +7,14 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public final class PatientBuilder {
+    private String id;
     private String name;
     private String phone;
     private String email;
     private LocalDate birthdate;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+
     private String id;
 
     public static PatientBuilder any() {
@@ -35,6 +37,7 @@ public final class PatientBuilder {
         this.id = UUID.randomUUID().toString();
         return this;
     }
+
 
     public PatientBuilder withId(String id) {
         this.id = id;

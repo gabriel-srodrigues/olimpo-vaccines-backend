@@ -19,5 +19,4 @@ public class QueueProperties implements InitializingBean {
     public void afterPropertiesSet() {
         log.info(toString());
     }
-
 }

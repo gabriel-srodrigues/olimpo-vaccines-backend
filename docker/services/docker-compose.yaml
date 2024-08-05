@@ -12,7 +12,7 @@ services:
     ports:
       - "3306:3306"
   rabbit:
-    container_name: adm_videos_rabbitmq
+    container_name: rabbitmq
     image: rabbitmq:3-management
     environment:
       - RABBITMQ_ERLANG_COOKIE=SWQOKODSQALRPCLNMEQG

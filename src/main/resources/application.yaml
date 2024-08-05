@@ -25,7 +25,16 @@ spring:
 
 amqp:
   queues:
-    vaccines-create:
+    create-vaccines:
       exchange: vaccines.events
       routing-key: vaccines.create
       queue: vaccines.create.queue
+    vaccinate-patient:
+      exchange: patients.eventsZ
+      routing-key: patient.vaccinate
+      queue: patient.vaccinate.queue
+server:
+  port: 8080
+springdoc:
+  swagger-ui:
+    path: swagger

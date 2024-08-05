@@ -1,0 +1,23 @@
+type PatientPage {
+    content: [Patient]
+    page: Page
+}
+
+type Page {
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+}
+
+type Patient {
+    id: String!
+    name: String!
+    phone: String!
+    email: String!
+    birthdate: String
+    createdAt: String
+    updatedAt: String
+}
+
+

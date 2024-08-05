@@ -1,20 +1,11 @@
 package br.bonnasys.vaccines.domain.model;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -37,8 +28,15 @@ public class HealthCenter {
             joinColumns = @JoinColumn(name = "health_center_id", foreignKey = @ForeignKey(name = "health_center_hc_id")))
     @MapKeyJoinColumn(name = "vaccine_id", foreignKey = @ForeignKey(name = "health_center_vaccine_id"))
     @Column(name = "amount")
-    private Map<Vaccine, Integer> stock;
+    private Map<Vaccine, Integer> stock = new HashMap<>();
 
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+
+    @PrePersist
+    public void beforeCreate() {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.setCreatedAt(now);
+        this.setUpdatedAt(now);
+    }
 }

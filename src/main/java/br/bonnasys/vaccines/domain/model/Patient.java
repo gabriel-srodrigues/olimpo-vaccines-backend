@@ -1,7 +1,16 @@
 package br.bonnasys.vaccines.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,7 +38,7 @@ public class Patient {
     private OffsetDateTime updatedAt;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VaccineRegistration> history;
 
     public Patient(String name, String phone, String email, LocalDate birthdate) {
@@ -58,5 +67,21 @@ public class Patient {
     @PrePersist
     public void prePersist() {
         this.createdAt = OffsetDateTime.now();
+    }
+
+    public Patient(String id,
+                   String name,
+                   String phone,
+                   String email,
+                   LocalDate birthdate,
+                   OffsetDateTime createdAt,
+                   OffsetDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

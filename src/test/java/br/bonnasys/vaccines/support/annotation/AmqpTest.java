@@ -6,11 +6,12 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ActiveProfiles("test")
 @SpringBootTest
 @Tag("integrationTest")
+@ActiveProfiles("test")
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface AmqpTest {
+
 }

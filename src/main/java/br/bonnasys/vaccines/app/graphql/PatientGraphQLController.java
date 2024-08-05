@@ -6,10 +6,8 @@ import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
 import br.bonnasys.vaccines.app.graphql.response.VaccineRegistrationResponse;
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import br.bonnasys.vaccines.domain.model.Patient;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
+import br.bonnasys.vaccines.domain.usecase.PatientFacade;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientCommand;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
-import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,9 +22,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class PatientGraphQLController {
-    private final SearchPatientUseCase searchPatientUseCase;
-    private final SearchPatientHistoryUseCase searchPatientHistoryUseCase;
-    private final GetPatientByIdUseCase getPatientByIdUseCase;
+    private final PatientFacade patientFacade;
     private final PatientMapper mapper;
 
     @QueryMapping
@@ -39,7 +35,7 @@ public class PatientGraphQLController {
         SearchPatientCommand command = new SearchPatientCommand(name, email);
         Pageable pageable = PageRequest.of(page, size);
 
-        Page<Patient> patientPage = searchPatientUseCase.execute(command, pageable);
+        Page<Patient> patientPage = patientFacade.searchPatientUseCase(command, pageable);
 
         Page<PatientResponse> patientResponse = patientPage.map(mapper::toPatientResponse);
 
@@ -52,13 +48,13 @@ public class PatientGraphQLController {
 
     @QueryMapping("getPatientById")
     public PatientResponse get(@Argument String id) {
-        Patient patient = getPatientByIdUseCase.execute(id);
+        Patient patient = patientFacade.getPatientByIdUseCase(id);
         return mapper.toPatientResponse(patient);
     }
 
     @SchemaMapping(value = "history", typeName = "PatientDetailed")
     public List<VaccineRegistrationResponse> getHistory(PatientResponse response) {
-        return searchPatientHistoryUseCase.execute(response.getId()).stream()
+        return patientFacade.searchPatientHistoryUseCase(response.getId()).stream()
                 .map(mapper::toVaccineRegistrationResponse).toList();
     }
 }
